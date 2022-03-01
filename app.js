@@ -10,6 +10,9 @@ const btnRegistro = document.getElementById('btnRegistro')
 const tBody = document.getElementById('regs')
 
 document.addEventListener('DOMContentLoaded', ()=>{
+    if (localStorage.getItem('misRegistros')) {
+        registro = JSON.parse(localStorage.getItem('misRegistros'))
+    }
     pintarRegs()
 })
 
@@ -39,6 +42,7 @@ btnRegistro.addEventListener('click', e=>{
     e.preventDefault()
        
     addRegistro()
+    localStorage.setItem('misRegistros', JSON.stringify(registro))
     pintarRegs()
 
     e.stopPropagation()
