@@ -65,24 +65,20 @@ const addRegistro = ()=>{
     registro.map(x=>{
         if (x.fecha == addFecha) {
             existe = true
-            if (!x.salida && (data.hora == 15) && (data.minuto >= 30 && data.minuto <= 59)) { //Salida: 15:30-59
+            if (!x.salida && (data.hora == 15) && (data.minuto >= 15 && data.minuto <= 59)) { //Salida: 15:30-59
                 x.salida = addHora
                 alert('Se registro la Salida!')
-                console.log("Se registró la Salida!")
             }else{
                 if(x.entrada){
                     if (data.hora == 8 && (data.minuto >= 0 && data.minuto <= 30)) { //Entrada: 8:0-30
                         alert('Su Entrada ya está registrada!')
-                        console.log('Su Entrada ya está registrada!') 
                         return
                     }
                 }
-                if(x.salida) {
+                if(x.salida != undefined) {
                     alert('Ya está registrada su salida!')
-                    console.log('Ya esta registrada su salida!')
                 }else{
                     alert('El registro de SALIDA está fuera de tiempo!')
-                    console.log('Salida Fuera de tiempo')
                 }
 
             }         
@@ -103,20 +99,16 @@ const addRegistro = ()=>{
         if (data.hora == 8 && (data.minuto >= 0 && data.minuto <= 30)) { //Entrada: 8:0-30
             registro.push(addEntrada)
             alert('Se registro la Entrada!')
-            console.log('Se registro la Entrada!') 
             return
         }else{
             alert('El registro de ENTRADA está fuera de tiempo!')
-            console.log('Entrada - Está fuera de tiempo')
         }
 
-        if (data.hora == 15 && (data.minuto >= 30 && data.minuto <= 59)) { //Salida: 15:30-59
+        if (data.hora == 13 && (data.minuto >= 15 && data.minuto <= 59)) { //Salida: 15:30-59
             registro.push(addSalida)
             alert('Se registró la Salida, pero no la Entrada!')
-            console.log('Se registro la Salida, pero no la entrada!') 
         }else{
             alert('El registro de SALIDA está fuera de tiempo!')
-            console.log('Salida - Está fuera de tiempo')
         }
     }
 }
