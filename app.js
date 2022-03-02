@@ -75,7 +75,7 @@ const addRegistro = ()=>{
                         return
                     }
                 }
-                if(x.salida != undefined) {
+                if(x.salida != "Sin registrar") {
                     alert('Ya está registrada su salida!')
                 }else{
                     alert('El registro de SALIDA está fuera de tiempo!')
