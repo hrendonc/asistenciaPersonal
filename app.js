@@ -2,6 +2,8 @@ let registro = []
 
 const btnRegistro = document.getElementById('btnRegistro')
 const tBody = document.getElementById('regs')
+const template = document.getElementById('template').content
+const fragment = document.createDocumentFragment()
 
 document.addEventListener('DOMContentLoaded', ()=>{
     if (localStorage.getItem('misRegistros')) {
@@ -14,21 +16,15 @@ const pintarRegs = ()=>{
     tBody.innerHTML=''
     
     registro.map(dato=>{
-        const lista = document.createElement('tr')
-        const dato1 = document.createTextNode(`${dato.fecha}`)
-        const dato2 = document.createTextNode(`${dato.entrada ? dato.entrada : "SIN REGISTRAR!"}`)
-        const dato3 = document.createTextNode(`${dato.salida ? dato.salida : "SIN REGISTRAR!"}`)
-        const item1 = document.createElement('td')
-        const item2 = document.createElement('td')
-        const item3 = document.createElement('td')
-        item1.appendChild(dato1)
-        item2.appendChild(dato2)
-        item3.appendChild(dato3)
-        lista.appendChild(item1)
-        lista.appendChild(item2)
-        lista.appendChild(item3)
-        tBody.appendChild(lista)        
+        const clone = template.cloneNode(true)
+
+        clone.querySelector('th').textContent = `${dato.fecha}`
+        clone.querySelectorAll('td')[0].textContent = `${dato.entrada ? dato.entrada : "SIN REGISTRAR!"}`
+        clone.querySelectorAll('td')[1].textContent = `${dato.salida ? dato.salida : "SIN REGISTRAR!"}`
+        
+        fragment.appendChild(clone)
      })
+     tBody.appendChild(fragment)
 }
 
 btnRegistro.addEventListener('click', e=>{
@@ -54,16 +50,18 @@ const addRegistro = ()=>{
     let addFecha = (`${data.año}${data.mes}${data.dia}`)
     let addHora = (`${data.hora}:${data.minuto}:${data.segundo}`)
     let existe = false
+
+    addFecha=addFecha+2
     
     registro.map(x=>{
         if (x.fecha == addFecha) { //Si ya existe un registro en el día actual
             existe = true
-            if (!x.salida && (data.hora == 15) && (data.minuto >= 30 && data.minuto <= 59)) { //Salida: 15:30-59
+            if (!x.salida && (data.hora == 9) && (data.minuto >= 54 && data.minuto <= 54)) { //Salida: 15:30-59
                 x.salida = addHora
                 alert('Se registró la Salida!')
             }else{
                 if(x.entrada){
-                    if (data.hora == 8 && (data.minuto >= 0 && data.minuto <= 30)) { //Entrada: 8:0-30
+                    if (data.hora == 9 && (data.minuto >= 58 && data.minuto <= 58)) { //Entrada: 8:0-30
                         alert('Su Entrada ya está registrada!')
                         return
                     }
@@ -89,7 +87,7 @@ const addRegistro = ()=>{
             salida: addHora
         }
 
-        if (data.hora == 8 && (data.minuto >= 0 && data.minuto <= 30)) { //Entrada: 8:0-30
+        if (data.hora == 9 && (data.minuto >= 58 && data.minuto <= 58)) { //Entrada: 8:0-30
             registro.push(addEntrada)
             alert('Se registró la Entrada!')
             return
@@ -98,7 +96,7 @@ const addRegistro = ()=>{
 
         }
 
-        if (data.hora == 15 && (data.minuto >= 30 && data.minuto <= 59)) { //Salida: 15:30-59
+        if (data.hora == 9 && (data.minuto >= 54 && data.minuto <= 54)) { //Salida: 15:30-59
             registro.push(addSalida)
             alert('Se registró la Salida, pero NO la Entrada!')
         }else{
