@@ -56,12 +56,12 @@ const addRegistro = ()=>{
     registro.map(x=>{
         if (x.fecha == addFecha) { //Si ya existe un registro en el día actual
             existe = true
-            if (!x.salida && (data.hora == 9) && (data.minuto >= 54 && data.minuto <= 54)) { //Salida: 15:30-59
+            if (!x.salida && (data.hora == 15) && (data.minuto >= 30 && data.minuto <= 59)) { //Salida: 15:30-59
                 x.salida = addHora
                 alert('Se registró la Salida!')
             }else{
                 if(x.entrada){
-                    if (data.hora == 9 && (data.minuto >= 58 && data.minuto <= 58)) { //Entrada: 8:0-30
+                    if (data.hora == 8 && (data.minuto >= 0 && data.minuto <= 30)) { //Entrada: 8:0-30
                         alert('Su Entrada ya está registrada!')
                         return
                     }
@@ -87,7 +87,7 @@ const addRegistro = ()=>{
             salida: addHora
         }
 
-        if (data.hora == 9 && (data.minuto >= 58 && data.minuto <= 58)) { //Entrada: 8:0-30
+        if (data.hora == 8 && (data.minuto >= 0 && data.minuto <= 30)) { //Entrada: 8:0-30
             registro.push(addEntrada)
             alert('Se registró la Entrada!')
             return
@@ -96,7 +96,7 @@ const addRegistro = ()=>{
 
         }
 
-        if (data.hora == 9 && (data.minuto >= 54 && data.minuto <= 54)) { //Salida: 15:30-59
+        if (data.hora == 15 && (data.minuto >= 30 && data.minuto <= 59)) { //Salida: 15:30-59
             registro.push(addSalida)
             alert('Se registró la Salida, pero NO la Entrada!')
         }else{
