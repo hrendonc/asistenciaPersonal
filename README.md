@@ -1,0 +1,2 @@
+# asistenciaPersonal
+App que registra las entradas y salidas para llevar un control personal de asistencia en el trabajo.
